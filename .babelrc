@@ -1,0 +1,8 @@
+{
+  "presets": ["env", "react", "stage-0"],
+  "plugins": [["module-resolver", {
+    "alias": {
+      "src": "./src",
+    }
+  }], "transform-decorators-legacy", "react-hot-loader/babel", "add-react-displayname", "transform-regenerator"]
+}
