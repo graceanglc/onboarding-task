@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { loadStores } from 'src/redux/stores';
 import { logout } from 'src/redux/auth';
@@ -21,9 +21,6 @@ import {
   FILTER_BY,
   STORE_LIST_TITLE,
 } from 'src/common/constants';
-
-import { Types, Colors, Sizes } from 'src/styles/theme';
-import { resets } from 'src/styles/utils';
 
 class StoreListPage extends Component {
   constructor(props) {
@@ -101,13 +98,13 @@ class StoreListPage extends Component {
         <Box width="100%" position="relative">
           <Box width="5rem" position="absolute" right="0">
             <Button primary size="sm" type="submit">
-                <NavLink to="/logout" textDecoration="none">Logout</NavLink>
+                <StyledNavLink to="/logout">Logout</StyledNavLink>
             </Button>
           </Box>
-          <Box padding="1rem 0" width="80%">
+          <Box width="80%">
             <h3>{STORE_LIST_TITLE}</h3>
           </Box>
-          <Box padding="1rem 0" width="10rem">
+          <Box width="10rem">
             <p>{FILTER_BY}</p>
             <ActionBar>
               {createDropdownFilters(StoreListPage.SEARCH_FILTERS, { type: this.state.filter } , this.onChangeFilter)}
@@ -143,6 +140,11 @@ class StoreListPage extends Component {
   }   
 }
 
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: #fff;
+`;
+
 const ActionBar = styled(Row)`
   justify-content: space-between;
   margin-bottom: 1rem;
@@ -156,4 +158,4 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = { loadStores, logout };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StoreListPage));
+export default connect(mapStateToProps, mapDispatchToProps)(StoreListPage);

@@ -42,6 +42,7 @@ export const Box = styled.div`
   ${props => props.minHeight && `min-height: ${props.minHeight}`};
   ${props => props.position && `position: ${props.position}`};
   ${props => props.right && `right: ${props.right}`};
+  ${props => props.left && `left: ${props.left}`};
 `;
 
 /**

@@ -35,19 +35,21 @@ class App extends Component {
 
     return (
       <ThemeProvider theme={theme}>
-        <Switch>
-          {privateRoutes.map(({ component: Comp, ...route }) => (
-            <AuthenticatedRoute
-              key={route.path}
-              authenticated={isAuthenticated}
-              {...route}
-              component={props => <Comp {...props} />}
-            />
-          ))}
-          {publicRoutes.map(route => (
-            <Route key={route.path} {...route} />
-          ))}
-        </Switch>
+        <Router>
+          <Switch>
+            {privateRoutes.map(({ component: Comp, ...route }) => (
+              <AuthenticatedRoute
+                key={route.path}
+                authenticated={isAuthenticated}
+                {...route}
+                component={props => <Comp {...props} />}
+              />
+            ))}
+            {publicRoutes.map(route => (
+              <Route key={route.path} {...route} />
+            ))}
+          </Switch>
+        </Router>
       </ThemeProvider>
     );
   }
