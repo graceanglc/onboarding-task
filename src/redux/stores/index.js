@@ -11,8 +11,8 @@ createAsyncHandlers,
 createReducer,
 } from 'src/redux/utils';
 
-const resultsActions = status => createAsyncActions(`${status}/results`);
-const activeActions = status => createAsyncActions(`${status}/active`);
+const resultsActions = createAsyncActions('stores/results');
+const activeActions = createAsyncActions('stores/active');
 
 const initialState = {
   results: { ...asyncInitialState, data: {} },
@@ -20,11 +20,11 @@ const initialState = {
 };
 
 const handlers = {
-  ...createAsyncHandlers(resultsActions('stores'), {path: ['results']}),
-  ...createAsyncHandlers(activeActions('store'), {path: ['active']}),
+  ...createAsyncHandlers(resultsActions, { path: ['results'] }),
+  ...createAsyncHandlers(activeActions, { path: ['active'] }),
 };
 
 export default createReducer(handlers, initialState);
 
-export const loadStores = createFetchThunk(resultsActions('stores'), getStores);
-export const loadActiveStore = createFetchThunk(activeActions('store'), getStoreData);
+export const loadStores = createFetchThunk(resultsActions, getStores);
+export const loadActiveStore = createFetchThunk(activeActions, getStoreData);

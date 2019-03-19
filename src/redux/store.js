@@ -2,9 +2,8 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from 'src/redux/reducers';
 import createThunkMiddleware from './ravenThunkMiddleware';
-import createHistory from 'history/createBrowserHistory';
+import history from '../common/history';
 
-const history = createHistory();
 const middlewares = [routerMiddleware(history), createThunkMiddleware()];
 let composeEnhancers = compose;
 

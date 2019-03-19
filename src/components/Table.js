@@ -51,36 +51,23 @@ export const TableCell = styled(TableElement)`
   }
 
   &.name {
-    width: 13rem;
+    width: 8rem;
   }
 
   &.address {
     flex: 1;
   }
 
+  &.type {
+    flex: 0.2;
+    text-align: center;
+  }
+
+  &.description {
+    flex: 0.5;
+  }
+
   &.phone {
-    width: 14rem;
-  }
-
-  &.activator {
-    width: 18rem;
-  }
-
-  &.rank {
-    width: 10rem;
-  }
-
-  &.territory {
     width: 8rem;
-  }
-
-  &.achievement {
-    width: 6rem;
-  }
-
-  &.new_convert,
-  &.repeat_outlet,
-  &.repeat_outlet_frequency {
-    width: 2.5rem;
   }
 `;

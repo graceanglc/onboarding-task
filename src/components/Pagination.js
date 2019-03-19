@@ -2,24 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import RcPagination from 'rc-pagination';
-import { Link } from 'react-router-dom';
-import { parse as parseQuery, stringify as stringifyQuery } from 'query-string';
-import { locationType } from 'src/common/types';
 import { PAGE_SIZE } from 'src/common/constants';
 import { Colors } from 'src/styles/theme';
 
-function Pagination({ itemsCount, location }) {
-  const currentParams = parseQuery(location.search);
-  const params = page => stringifyQuery({ ...currentParams, page });
+function Pagination({ itemsCount, state, onChangePage }) {
+  const currentParams = state.page;
 
   return (
     <PaginationWrapper>
       <RcPagination
-        defaultCurrent={Number(currentParams.page) || 1}
+        defaultCurrent={Number(currentParams) || 1}
         total={itemsCount}
         showPrevNextJumpers={false}
         pageSize={PAGE_SIZE}
-        itemRender={page => <Link to={`${location.pathname}?${params(page)}`}>{page}</Link>}
+        onChange={onChangePage}
       />
     </PaginationWrapper>
   );
@@ -27,7 +23,8 @@ function Pagination({ itemsCount, location }) {
 
 Pagination.propTypes = {
   itemsCount: PropTypes.number.isRequired,
-  location: locationType.isRequired,
+  state: PropTypes.shape().isRequired,
+  onChangePage: PropTypes.func.isRequired,
 };
 
 const PaginationWrapper = styled.div`

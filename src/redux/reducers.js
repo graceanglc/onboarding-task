@@ -1,16 +1,10 @@
-/*
- src/reducers/reducers.js
-*/
 import { combineReducers } from 'redux';
 import stores from './stores';
-// import store from './storeReducer';
-// state 
-// {
-//    simpleReducer : {....}
-//    store         : { ... }
-// }
+import auth from './auth';
+import { routerReducer } from 'react-router-redux';
+
 export default combineReducers({
- stores
- // storeReducer
- // store : storeReducer atau store
+ auth,
+ stores,
+ router: routerReducer,
 });

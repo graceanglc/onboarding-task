@@ -1,17 +1,33 @@
-import {
-	STORE_LIST_PATH_URL,
-} from './constants';
-
 import StoreListPage from 'src/containers/StoreListPage';
 import StoreDetailPage from 'src/containers/StoreDetailPage';
+import Login from 'src/containers/Login';
+import Logout from 'src/containers/Logout';
+import NotFound from 'src/components/ErrorPages/NotFound';
 
-export default [
-	{
-		path: STORE_LIST_PATH_URL,
-		component: StoreListPage,
-	},
-	{
-		path: `${STORE_LIST_PATH_URL}/:id`,
-		component: StoreDetailPage,
-	},
+export const publicRoutes = [
+  {
+    path: '/login',
+    exact: true,
+    component: Login,
+  },
+  {
+    path: '/logout',
+    exact: true,
+    component: Logout,
+  },
+  {
+    path: '*',
+    component: NotFound,
+  },
+];
+
+export const privateRoutes = [
+  {
+    path: '/stores/:id',
+    component: StoreDetailPage,
+  },
+  {
+    path: '/stores',
+    component: StoreListPage,
+  },
 ];
