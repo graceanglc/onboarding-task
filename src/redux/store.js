@@ -1,10 +1,10 @@
 import { compose, createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from 'src/redux/reducers';
-import createThunkMiddleware from './ravenThunkMiddleware';
+import thunkMiddleware from './thunkMiddleware';
 import history from '../common/history';
 
-const middlewares = [routerMiddleware(history), createThunkMiddleware()];
+const middlewares = [routerMiddleware(history), thunkMiddleware()];
 let composeEnhancers = compose;
 
 if (process.env.NODE_ENV !== 'production') {

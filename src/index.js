@@ -8,14 +8,14 @@ import createHistory from 'history/createBrowserHistory';
 import configureStore from './redux/store';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
- 
+
 const history = createHistory();
 
 ReactDOM.render(
-  <Provider store={configureStore()}> 
-      <ConnectedRouter history={history}>
-          <App />
-      </ConnectedRouter>
+  <Provider store={configureStore()}>
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

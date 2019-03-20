@@ -41,29 +41,16 @@ export const Types = {
 
 export const Sizes = {
   font: {
-    xl: '1.25rem',
-    l: '1.125rem',
     m: '1rem',
     reg: '0.875rem',
     sm: '0.75rem',
   },
   radius: {
-    full: '100%',
-    l: '0.5rem',
-    m: '0.375rem',
     reg: '0.25rem',
-    sm: '0.125rem',
-  },
-  border: {
-    xl: '0.5rem',
   },
   spacing: {
-    base: '1rem',
-    regular: '0.875rem',
     medium: '0.75rem',
     small: '0.625rem',
-    smaller: '0.5rem',
-    xs: '0.25rem',
   },
 };
 
@@ -71,6 +58,10 @@ export const Breakpoints = {
   sm: '20rem',
   md: '48rem',
   lg: '60rem',
+  phonePortrait: '300px',
+  phoneLandscape: '480px',
+  tabletPortrait: '768px',
+  tabletLandscape: '1024px',
 };
 
 export const Shadows = [
@@ -80,13 +71,6 @@ export const Shadows = [
 ];
 
 export const media = bp => `@media screen and (max-width: ${Breakpoints[bp]})`;
-
-export const chartColors = [
-  ['#53a8e2', '#67dafb'],
-  ['#ffbc4d', '#fed695'],
-  ['#9abf65', '#c9ef94'],
-  ['#9f6bbe', '#eed3fe'],
-];
 
 export default {
   Colors,

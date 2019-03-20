@@ -22,17 +22,33 @@ import {
   STORE_LIST_TITLE,
 } from 'src/common/constants';
 
-class StoreListPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      isLoadingCSV: false,
-      filter: null,
-      page: 1, };
+@connect(
+  state => ({
+    stores: state.stores.results,
+  }),
+  {
+    loadStores,
+    logout,
   }
-
+)
+export default class StoreListPage extends Component {
   static propTypes = {
-    stores: PropTypes.shape().isRequired,
+    stores: PropTypes.shape({
+      data: PropTypes.shape({
+        count: PropTypes.number,
+        next: PropTypes.string,
+        previous: PropTypes.string,
+        result: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          address: PropTypes.string.isRequired,
+          description: PropTypes.string.isRequired,
+          phone: PropTypes.string.isRequired,
+          type: PropTypes.string.isRequired,
+          owner: PropTypes.number.isRequired,
+        }))
+      }),
+    }).isRequired,
     loadStores: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
   }
@@ -47,6 +63,12 @@ class StoreListPage extends Component {
 
   static SEARCH_FILTERS = [{ value: 'type', options: TYPE }];
 
+  state = { 
+    isLoadingCSV: false,
+    filter: null,
+    page: 1, 
+  };
+
   componentDidMount() {
     const { page, filter } = this.state;
 
@@ -56,7 +78,7 @@ class StoreListPage extends Component {
   componentDidUpdate(_, prevState) {
     const { page, filter } = this.state;
 
-    if (prevState.filter !== this.state.filter || prevState.page !== this.state.page)   {
+    if (prevState.filter !== this.state.filter || prevState.page !== this.state.page) {
       this.props.loadStores({ page, type: filter});
     }
   }
@@ -66,16 +88,6 @@ class StoreListPage extends Component {
       page: page,
     });
   }
-
-  onSubmit = async ({ setSubmitting, setErrors }) => {
-    console.log(this.props.logout, "woow");
-    try {
-      await this.props.logout;
-    } catch (e) {
-      setErrors(this.props.auth.error);
-    }
-    setSubmitting(false);
-  };
 
   onChangeFilter =  filter => evt => {
     const { value: selectedFilter } = evt.target;
@@ -91,10 +103,12 @@ class StoreListPage extends Component {
 
   render() {
     const { isLoading, isLoaded, data } = this.props.stores;
+    const { isLoadingCSV, filter } = this.state;
     const isLoadSuccessful = !isLoading && isLoaded && data && data.results;
+
     return (
       <Box height="100%" position="relative">
-        <LoadingIndicator show={this.state.isLoadingCSV} />
+        <LoadingIndicator show={isLoadingCSV} />
         <Box width="100%" position="relative">
           <Box width="5rem" position="absolute" right="0">
             <Button primary size="sm" type="submit">
@@ -107,7 +121,7 @@ class StoreListPage extends Component {
           <Box width="10rem">
             <p>{FILTER_BY}</p>
             <ActionBar>
-              {createDropdownFilters(StoreListPage.SEARCH_FILTERS, { type: this.state.filter } , this.onChangeFilter)}
+              {createDropdownFilters(StoreListPage.SEARCH_FILTERS, { type: filter } , this.onChangeFilter)}
             </ActionBar>
           </Box>
           <Table>
@@ -122,7 +136,6 @@ class StoreListPage extends Component {
             {isLoadSuccessful &&
               data.results.map(store => (
                 <TableRow to={`/stores/${store.id}`} key={store.id}>
-                {/* <TableCell className="selector">▢</TableCell> */}
                   {this.createStoreListTableCells(store).map(({ column, value }) => (
                     <TableCell key={column} className={column}>
                       {value}
@@ -149,13 +162,3 @@ const ActionBar = styled(Row)`
   justify-content: space-between;
   margin-bottom: 1rem;
 `;
-
-const mapStateToProps = state => {
-    return {
-        stores: state.stores.results,
-    }
-};
-
-const mapDispatchToProps = { loadStores, logout };
-
-export default connect(mapStateToProps, mapDispatchToProps)(StoreListPage);

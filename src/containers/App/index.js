@@ -9,7 +9,16 @@ import theme from 'src/styles/theme';
 import AuthenticatedRoute from 'src/components/AuthenticatedRoute';
 import { reloadAuth, logout } from 'src/redux/auth';
 
-class App extends Component {
+@connect(
+  state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+  }),
+  {
+    reloadAuth,
+    logout,
+  }
+)
+export default class App extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     reloadAuth: PropTypes.func.isRequired,
@@ -54,16 +63,3 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-const mapDispatchToProps = {
-  reloadAuth,
-  logout,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);

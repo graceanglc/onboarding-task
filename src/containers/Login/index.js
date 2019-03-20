@@ -13,7 +13,16 @@ import Button from 'src/components/Button';
 import { media, Colors } from 'src/styles/theme';
 import { TextInput, Label } from 'src/components/Input';
 
-class Login extends Component {
+@connect(
+  ({ auth, router }) => ({
+    auth,
+    router,
+  }),
+  {
+    login,
+  }
+)
+export default class Login extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     router: PropTypes.shape().isRequired,
@@ -109,8 +118,8 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: flex-end;
-  ${media('tablet')} {
-    flex-direction: column;
+  ${media('phonePortrait')} {
+    background: none;
   }
 `;
 
@@ -147,15 +156,3 @@ const FluidForm = styled(Form)`
     border-left: 6px solid ${Colors.red(0)};
   }
 `;
-
-const mapStateToProps = ({ auth, router }) => ({
-  auth,
-  router,
-});
-
-const mapDispatchToProps = { login };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);

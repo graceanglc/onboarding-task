@@ -6,7 +6,6 @@ import noop from 'lodash/noop';
 export const createAction = type => {
   const actionCreator = (payload = null) => ({
     type,
-    
     payload,
     error: payload instanceof Error,
   });

@@ -17,10 +17,28 @@ import { Content, Card } from 'src/components/Details';
 
 import { Colors } from 'src/styles/theme';
 
-class StoreDetailPage extends Component {
+@connect(
+  state => ({
+    store: state.stores.active,
+  }),
+  {
+    loadActiveStore,
+  }
+)
+export default class StoreDetailPage extends Component {
   static propTypes = {
     match: matchType.isRequired,
-    store: PropTypes.shape().isRequired,
+    store: PropTypes.shape({
+      data: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        address: PropTypes.string,
+        description: PropTypes.string,
+        phone: PropTypes.string,
+        type: PropTypes.string,
+        owner: PropTypes.number,
+      }),
+    }).isRequired,
     loadActiveStore: PropTypes.func.isRequired,
   };
 
@@ -79,14 +97,3 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #fff;
 `;
-
-const mapStateToProps = state => ({
-  store: state.stores.active,
-});
-
-const mapDispatchToProps = { loadActiveStore };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StoreDetailPage);

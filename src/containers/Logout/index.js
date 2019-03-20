@@ -4,7 +4,13 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from 'src/redux/auth';
 
-class Logout extends Component {
+@connect(
+  null,
+  {
+    logout,
+  }
+)
+export default class Logout extends Component {
   static propTypes = {
     logout: PropTypes.func.isRequired,
   };
@@ -17,7 +23,3 @@ class Logout extends Component {
     return <Redirect to="/login" />;
   }
 }
-
-const mapDispatchToProps = { logout };
-
-export default connect(null, mapDispatchToProps)(Logout);

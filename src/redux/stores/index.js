@@ -1,14 +1,11 @@
-import {
-  getStores,
-  getStoreData,
-} from 'src/services/api';
+import { getStores, getStoreData } from 'src/services/api';
 
 import {
-asyncInitialState,
-createAsyncActions,
-createFetchThunk,
-createAsyncHandlers,
-createReducer,
+  asyncInitialState,
+  createAsyncActions,
+  createFetchThunk,
+  createAsyncHandlers,
+  createReducer,
 } from 'src/redux/utils';
 
 const resultsActions = createAsyncActions('stores/results');
